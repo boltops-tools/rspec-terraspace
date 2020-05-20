@@ -59,7 +59,7 @@ Where is the generated test harness located?
 
 The test hardness is materialized in `/tmp/terraspace/test-harnesses/NAME` by default. The build root can be controlled with `TS_RSPEC_BUILD_ROOT` env var.
 
-So if you set it: `export TS_RSPEC_BUILD_ROOT=~/environment/terraspace-test-harnesses`. It will be build at `~/environment/terraspace-test-harnesses/NAME` instead.
+So if you set it: `export TS_RSPEC_BUILD_ROOT=~/environment/terraspace-test-harnesses`. It will be built at `~/environment/terraspace-test-harnesses/NAME` instead.
 
 ## Example
 
