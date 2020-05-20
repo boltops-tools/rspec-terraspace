@@ -1,17 +1,25 @@
 module RSpec::Terraspace
   class Ts
+    CLI = ::Terraspace::CLI
+
     def build_test_harness(options={})
       puts "build_test_harness"
       project = Project.new(options)
-      project.create
+      ts_root = project.create
+      ENV['TS_ROOT'] = ts_root # switch root to the generated test harness
     end
 
-    def up
-      puts "up"
+    def up(args)
+      run("up #{args} -y")
     end
 
-    def down
-      puts "down"
+    def down(args)
+      run("down #{args} -y")
+    end
+
+    def run(command)
+      args = command.split(' ')
+      CLI.start(args)
     end
   end
 end
