@@ -20,7 +20,7 @@ describe "main" do
   before(:all) do
     mod_path = File.expand_path("../..", __dir__)
     terraspace.build_test_harness(
-      name: "vm",
+      name: "network",
       modules: {example: mod_path},
       stacks:  {example: "#{mod_path}/test/spec/fixtures/stack"},
     )
@@ -43,7 +43,7 @@ To run the spec:
 
 The test will:
 
-1. Build a terraspace project to use as a test harness. The test harness adds the modules and stacks for testing.
+1. Build a test harness. The test harness is a generated terraspace project with the specified modules and stacks. They materialize in `/tmp/terraspace/test-harnesses/NAME`. The build root can be controlled with `TS_RSPEC_BUILD_ROOT` env var.
 2. Runs a `terraspace up` (`terraform apply`) to create real resources.
 3. Check the resources. In this case, it simply checks for the terraform output.
 4. Runs a `terraspace down` (`terraform destroy`) to clean up the real resources.
