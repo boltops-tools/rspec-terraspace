@@ -35,17 +35,43 @@ module RSpec::Terraspace
     end
 
     def build_modules
-      @modules.each do |name, src|
-        dest = "#{build_dir}/app/modules/#{name}"
-        copy(src, dest)
-        remove_test_folder(dest) if @remove_test_folder
-      end
+      build_app_subfolder(@modules, "modules")
     end
 
     def build_stacks
-      @stacks.each do |name, src|
-        dest = "#{build_dir}/app/stacks/#{name}"
-        copy(src, dest)
+      build_app_subfolder(@stacks, "stacks")
+    end
+
+    # Inputs:
+    #
+    #     list:     options[:modules] or options[:stacks]
+    #     type_dir: modules or stacks
+    #
+    # The list argument can support a Hash or String value.
+    #
+    # If provided a Hahs, it should be structured like so:
+    #
+    #    {vm: "app/modules/vm", network: "app/modules/network"}
+    #
+    # This allows for finer-control to specify what modules and stacks to build
+    #
+    # If provide a String, it should be a path to folder containing all modules or stacks.
+    # This provides less fine-grain control but is easier to use and shorter.
+    #
+    def build_app_subfolder(list, type_dir)
+      case list
+      when Hash
+        list.each do |name, src|
+          dest = "#{build_dir}/app/#{type_dir}/#{name}"
+          copy(src, dest)
+          remove_test_folder(dest) if @remove_test_folder
+        end
+      when String
+        dest = "#{build_dir}/app/#{type_dir}"
+        FileUtils.rm_rf(dest)
+        FileUtils.cp_r(list, dest)
+      else
+        raise "modules option must be a Hash or String"
       end
     end
 
