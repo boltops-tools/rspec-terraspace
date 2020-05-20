@@ -13,7 +13,19 @@ Let's say you have terraform module named demo:
     ├── outputs.tf
     └── variables.tf
 
-Create a `demo/test` folder to add tests. Example:
+Create a `demo/test` folder to add tests. So the structure will look something like this:
+
+    demo
+    ├── main.tf
+    ├── outputs.tf
+    ├── test
+    │   └── spec
+    │       ├── fixtures
+    │       ├── main_spec.rb
+    │       └── spec_helper.rb
+    └── variables.tf
+
+Here's an examle of a test/spec.
 
 test/spec/main_spec.rb:
 
