@@ -7,7 +7,7 @@ module RSpec::Terraspace
     CLI = ::Terraspace::CLI
 
     def build_test_harness(options={})
-      puts "build_test_harness"
+      puts "Building test harness..."
       project = Project.new(options)
       @ts_root = project.create
       ENV['TS_ROOT'] = @ts_root # switch root to the generated test harness
