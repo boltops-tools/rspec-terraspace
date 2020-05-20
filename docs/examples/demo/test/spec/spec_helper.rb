@@ -1,6 +1,7 @@
 ENV["TS_ENV"] = "test"
 ENV["TS_TEST"] = "1"
 
+require "rspec-terraspace"
 require "terraspace"
 
 module Helper
