@@ -48,6 +48,7 @@ The test will:
 3. Check the resources. In this case, it simply checks for the terraform output.
 4. Runs a `terraspace down` (`terraform destroy`) to clean up the real resources.
 
+Example in [docs/examples/demo](docs/examples/demo).
 
 ## Installation
 
