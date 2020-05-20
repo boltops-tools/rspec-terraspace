@@ -46,7 +46,9 @@ end
 
 To run the spec:
 
-    rspec
+    cd demo/test # you should be in the test folder
+    bundle
+    bundle exec rspec
 
 The test will:
 
