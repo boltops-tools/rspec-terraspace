@@ -37,18 +37,30 @@ describe "main" do
 end
 ```
 
+### Run Tests
+
 To run the spec:
 
     rspec
 
 The test will:
 
-1. Build a test harness. The test harness is a generated terraspace project with the specified modules and stacks. They materialize in `/tmp/terraspace/test-harnesses/NAME`. The build root can be controlled with `TS_RSPEC_BUILD_ROOT` env var.
+1. Build a test harness. The test harness is a generated terraspace project with the specified modules and stacks.
 2. Runs a `terraspace up` (`terraform apply`) to create real resources.
 3. Check the resources. In this case, it simply checks for the terraform output.
 4. Runs a `terraspace down` (`terraform destroy`) to clean up the real resources.
 
-Example in [docs/examples/demo](docs/examples/demo).
+### Test harness location
+
+Where is the generated test harness located?
+
+The test hardness is materialized in `/tmp/terraspace/test-harnesses/NAME` by default. The build root can be controlled with `TS_RSPEC_BUILD_ROOT` env var.
+
+So if you set it: `export TS_RSPEC_BUILD_ROOT=~/environment/terraspace-test-harnesses`. It will be build at `~/environment/terraspace-test-harnesses/NAME` instead.
+
+## Example
+
+A more complete example is in [docs/examples/demo](docs/examples/demo).
 
 ## Installation
 
