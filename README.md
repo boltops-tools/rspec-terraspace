@@ -35,7 +35,7 @@ describe "main" do
   it "successful deploy" do
     # example is the module or stack name under testing
     network_id = terraspace.output("example", "network_id")
-    expect(network_id).to include("networks") # IE: projects/tung-275700/global/networks/ladybug
+    expect(network_id).to include("networks") # IE: projects/tung-xxx/global/networks/ladybug
   end
 end
 ```
