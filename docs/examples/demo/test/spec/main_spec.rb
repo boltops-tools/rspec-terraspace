@@ -1,6 +1,6 @@
 describe "main" do
   before(:all) do
-    mod_path = File.expand_path("../..", __dir__)
+    mod_path = File.expand_path("../..", __dir__) # the source of the module under testing is 2 levels up
     # Build terraspace project to use as a test harness
     # Will be located at: /tmp/terraspace/test-harnesses/network
     terraspace.build_test_harness(
