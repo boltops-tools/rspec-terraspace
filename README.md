@@ -1,5 +1,7 @@
 # rspec-terraspace
 
+[![BoltOps Badge](https://img.boltops.com/boltops/badges/boltops-badge.png)](https://www.boltops.com)
+
 Terraspec rspec helper methods.
 
 ## Usage
