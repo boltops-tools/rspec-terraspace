@@ -8,11 +8,20 @@ module RSpec::Terraspace
       @name    = options[:name] || "demo"
       @modules = options[:modules]
       @stacks  = options[:stacks]
+
+      @remove_test_folder = options[:remove_test_folder].nil? ? true : options[:remove_test_folder]
     end
 
     def create
       clean
+      build_project
+      build_modules
+      build_stacks
+      puts "Test harness built: #{build_dir}"
+      build_dir
+    end
 
+    def build_project
       parent_dir = File.dirname(build_dir)
       FileUtils.mkdir_p(parent_dir)
       Dir.chdir(parent_dir) do
@@ -23,19 +32,21 @@ module RSpec::Terraspace
       # TODO: terraspace new project --no-config option instead
       FileUtils.rm_f("#{build_dir}/config/backend.tf")
       FileUtils.rm_f("#{build_dir}/config/provider.tf")
+    end
 
+    def build_modules
       @modules.each do |name, src|
         dest = "#{build_dir}/app/modules/#{name}"
         copy(src, dest)
-        remove_test_folder(dest)
+        remove_test_folder(dest) if @remove_test_folder
       end
+    end
+
+    def build_stacks
       @stacks.each do |name, src|
         dest = "#{build_dir}/app/stacks/#{name}"
         copy(src, dest)
       end
-
-      puts "Test harness built: #{build_dir}"
-      build_dir
     end
 
     def remove_test_folder(dest)
@@ -56,8 +67,7 @@ module RSpec::Terraspace
     end
 
     def build_root
-      # TODO: move to /tmp/terraspace/test-harnesses
-      ENV['TS_RSPEC_BUILD_ROOT'] || "#{ENV['HOME']}/environment/terraspace-test-harnesses"
+      ENV['TS_RSPEC_BUILD_ROOT'] || "/tmp/terraspace/test-harnesses"
     end
   end
 end
