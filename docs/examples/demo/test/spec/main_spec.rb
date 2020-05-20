@@ -1,8 +1,10 @@
 describe "main" do
   before(:all) do
     mod_path = File.expand_path("../..", __dir__)
+    # Build terraspace project to use as a test harness
+    # Will be located at: /tmp/terraspace/test-harnesses/network
     terraspace.build_test_harness(
-      name: "network",
+      name: "network", # terraspace project name
       modules: {example: mod_path},
       stacks:  {example: "#{mod_path}/test/spec/fixtures/stack"},
     )
