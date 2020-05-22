@@ -15,6 +15,9 @@ module RSpec::Terraspace
 
     def up(args)
       run("up #{args} -y")
+      mod = args.split(' ').first
+      @mod = ::Terraspace::Mod.new(mod)
+      save_output
     end
 
     def down(args)
@@ -22,23 +25,20 @@ module RSpec::Terraspace
     end
 
     def run(command)
+      puts "=> terraspace #{command}".color(:green)
       args = command.split(' ')
       CLI.start(args)
     end
 
-    def save_output(mod)
-      run("output #{mod} --json --save-to #{saved_output_path}")
+    # Note: a terraspace.down will remove the output.json since it does a clean
+    def save_output
+      run("output #{@mod.name} --json --out output.json")
     end
-    memoize :save_output
 
     def output(mod, name)
-      save_output(mod)
-      data = JSON.load(IO.read(saved_output_path))
+      out_path = "#{@mod.cache_build_dir}/output.json"
+      data = JSON.load(IO.read(out_path))
       data.dig(name, "value")
-    end
-
-    def saved_output_path
-      "#{@ts_root}/output.json"
     end
   end
 end
