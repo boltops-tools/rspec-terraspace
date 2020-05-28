@@ -32,7 +32,7 @@ module RSpec::Terraspace
 
     # Note: a terraspace.down will remove the output.json since it does a clean
     def save_output
-      run("output #{@mod.name} --json --out output.json")
+      run("output #{@mod.name} --format json --out output.json")
     end
 
     def output(mod, name)
