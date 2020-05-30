@@ -15,6 +15,8 @@ module Rspec
   end
 end
 
+require "terraspace"
+
 Terraspace::Tester.register("rspec",
   root: File.expand_path("../..", __dir__)
 )
