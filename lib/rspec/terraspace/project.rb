@@ -26,12 +26,8 @@ module RSpec::Terraspace
       FileUtils.mkdir_p(parent_dir)
       Dir.chdir(parent_dir) do
         project_name = File.basename(build_dir)
-        ::Terraspace::CLI::New::Project.start([project_name])
+        ::Terraspace::CLI::New::Project.start([project_name, "--no-config"])
       end
-
-      # TODO: terraspace new project --no-config option instead
-      FileUtils.rm_f("#{build_dir}/config/backend.tf")
-      FileUtils.rm_f("#{build_dir}/config/provider.tf")
     end
 
     def build_modules
@@ -93,6 +89,10 @@ module RSpec::Terraspace
     end
 
     def build_root
+      self.class.build_root
+    end
+
+    def self.build_root
       ENV['TS_RSPEC_BUILD_ROOT'] || "/tmp/terraspace/test-harnesses"
     end
   end

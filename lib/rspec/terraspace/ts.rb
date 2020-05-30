@@ -36,8 +36,7 @@ module RSpec::Terraspace
     end
 
     def output(mod, name)
-      out_path = "#{@mod.cache_build_dir}/output.json"
-      data = JSON.load(IO.read(out_path))
+      data = JSON.load(IO.read("output.json"))
       data.dig(name, "value")
     end
   end
