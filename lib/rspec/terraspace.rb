@@ -12,6 +12,9 @@ RSpec::Terraspace::Autoloader.setup
 module Rspec
   module Terraspace
     class Error < StandardError; end
-    # Your code goes here...
   end
 end
+
+Terraspace::Tester.register("rspec",
+  root: File.expand_path("../..", __dir__)
+)
