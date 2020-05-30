@@ -32,12 +32,17 @@ module RSpec::Terraspace
 
     # Note: a terraspace.down will remove the output.json since it does a clean
     def save_output
-      run("output #{@mod.name} --format json --out output.json")
+      FileUtils.mkdir_p(File.dirname(out_path))
+      run("output #{@mod.name} --format json --out #{out_path}")
     end
 
     def output(mod, name)
-      data = JSON.load(IO.read("output.json"))
+      data = JSON.load(IO.read(out_path))
       data.dig(name, "value")
+    end
+
+    def out_path
+      "#{Terraspace.tmp_root}/rspec/output.json"
     end
   end
 end

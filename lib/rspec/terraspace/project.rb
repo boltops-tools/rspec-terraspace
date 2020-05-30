@@ -5,9 +5,11 @@ module RSpec::Terraspace
   class Project
     def initialize(options={})
       @options = options
-      @name    = options[:name] || "demo"
+      @name    = options[:name]
+      @config  = options[:config]
       @modules = options[:modules]
       @stacks  = options[:stacks]
+      @tfvars  = options[:tfvars]
 
       @remove_test_folder = options[:remove_test_folder].nil? ? true : options[:remove_test_folder]
     end
@@ -15,8 +17,10 @@ module RSpec::Terraspace
     def create
       clean
       build_project
+      build_config
       build_modules
       build_stacks
+      build_tfvars
       puts "Test harness built: #{build_dir}"
       build_dir
     end
@@ -30,12 +34,62 @@ module RSpec::Terraspace
       end
     end
 
+    def build_config
+      return unless @config
+
+      config_folder = "#{build_dir}/config"
+      FileUtils.rm_rf(config_folder) # wipe current config folder
+      FileUtils.mkdir_p(File.dirname(config_folder))
+      src = @config
+      FileUtils.cp_r(src, config_folder)
+    end
+
     def build_modules
-      build_app_subfolder(@modules, "modules")
+      return unless @modules
+      build_type_folder("modules", @modules)
     end
 
     def build_stacks
-      build_app_subfolder(@stacks, "stacks")
+      return unless @stacks
+      build_type_folder("stacks", @stacks)
+    end
+
+    # If a file has been supplied, then it gets copied over.
+    #
+    #     # File
+    #     terraspace.build_test_harness(
+    #       tfvars: {demo: "spec/fixtures/tfvars/demo.tfvars"},
+    #     end
+    #
+    #     # Results in:
+    #     app/stacks/#{stack}/tfvars/test.tfvars
+    #
+    # If a directory has been supplied, then the folder fully gets copied over.
+    #
+    #     # Directory
+    #     terraspace.build_test_harness(
+    #       tfvars: {demo: "spec/fixtures/tfvars/demo"},
+    #     end
+    #
+    #     # Results in (whatever is in the folder):
+    #     app/stacks/#{stack}/tfvars/base.tfvars
+    #     app/stacks/#{stack}/tfvars/test.tfvars
+    #
+    def build_tfvars
+      return unless @tfvars
+      @tfvars.each do |stack, src|
+        tfvars_folder = "#{build_dir}/app/stacks/#{stack}/tfvars"
+        FileUtils.rm_rf(tfvars_folder) # wipe current tfvars folder. dont use any of the live values
+
+        if File.directory?(src)
+          FileUtils.mkdir_p(File.dirname(tfvars_folder))
+          FileUtils.cp_r(src, tfvars_folder)
+        else # if only a single file, then generate a test.tfvars since this runs under TS_ENV=test
+          dest = "#{tfvars_folder}/test.tfvars"
+          FileUtils.mkdir_p(File.dirname(dest))
+          FileUtils.cp(src, dest)
+        end
+      end
     end
 
     # Inputs:
@@ -54,7 +108,7 @@ module RSpec::Terraspace
     # If provide a String, it should be a path to folder containing all modules or stacks.
     # This provides less fine-grain control but is easier to use and shorter.
     #
-    def build_app_subfolder(list, type_dir)
+    def build_type_folder(type_dir, list)
       case list
       when Hash
         list.each do |name, src|
@@ -85,15 +139,15 @@ module RSpec::Terraspace
     end
 
     def build_dir
-      "#{build_root}/#{@name}"
+      "#{tmp_root}/#{@name}"
     end
 
-    def build_root
-      self.class.build_root
+    def tmp_root
+      self.class.tmp_root
     end
 
-    def self.build_root
-      ENV['TS_RSPEC_BUILD_ROOT'] || "/tmp/terraspace/test-harnesses"
+    def self.tmp_root
+      "#{Terraspace.tmp_root}/test-harnesses"
     end
   end
 end
