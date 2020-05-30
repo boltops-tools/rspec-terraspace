@@ -1,0 +1,6 @@
+# This is where you call your module. Example:
+module "<%= name %>" {
+  source = "../../modules/<%= name %>"
+  # Input variables
+  # var1 = "val1"
+}

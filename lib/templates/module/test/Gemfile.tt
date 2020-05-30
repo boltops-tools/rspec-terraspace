@@ -1,0 +1,9 @@
+source "https://rubygems.org"
+
+<%=
+build_gemfile(
+  "terraspace",
+  "rspec-terraspace",
+  provider_gem_name,
+)
+%>

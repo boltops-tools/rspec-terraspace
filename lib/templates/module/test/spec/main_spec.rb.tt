@@ -1,0 +1,22 @@
+describe "main" do
+  before(:all) do
+    mod_path = File.expand_path("../..", __dir__) # the source of the module to test is 2 levels up
+    terraspace.build_test_harness(
+      name: "<%= name %>-harness",
+      modules: {<%= name %>: mod_path},
+      stacks:  {<%= name %>: "#{mod_path}/test/spec/fixtures/stack"}, # folder with the stack module files
+    )
+    terraspace.up("<%= name %>")
+  end
+  after(:all) do
+    terraspace.down("<%= name %>")
+  end
+
+  it "successful deploy" do
+    # Replace with your own test
+    expect(true).to be true
+    # Example
+    # output_value = terraspace.output("<%= name %>", "some-output")
+    # expect(output_value).to include("some-value")
+  end
+end
