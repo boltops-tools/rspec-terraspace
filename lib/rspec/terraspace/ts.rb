@@ -9,8 +9,8 @@ module RSpec::Terraspace
     def build_test_harness(options={})
       puts "Building test harness..."
       project = Project.new(options)
-      @ts_root = project.create
-      ENV['TS_ROOT'] = @ts_root # switch root to the generated test harness
+      root = project.create
+      Terraspace.root = root # switch root to the generated test harness
     end
 
     def up(args)
