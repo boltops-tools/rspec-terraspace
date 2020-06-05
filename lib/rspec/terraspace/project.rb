@@ -10,6 +10,7 @@ module RSpec::Terraspace
       @modules = options[:modules]
       @stacks  = options[:stacks]
       @tfvars  = options[:tfvars]
+      @folders = options[:folders]
 
       @remove_test_folder = options[:remove_test_folder].nil? ? true : options[:remove_test_folder]
     end
@@ -21,8 +22,20 @@ module RSpec::Terraspace
       build_modules
       build_stacks
       build_tfvars
+      build_folders
       puts "Test harness built: #{build_dir}"
       build_dir
+    end
+
+    # folders at any-level, including top-level can be copied with the folders option
+    def build_folders
+      return unless @folders
+
+      @folders.each do |folder|
+        dest = "#{build_dir}/#{folder}"
+        FileUtils.mkdir_p(File.dirname(dest))
+        FileUtils.cp_r(folder, dest)
+      end
     end
 
     def build_project
