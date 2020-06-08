@@ -5,9 +5,9 @@ require "rspec/terraspace"
 
 module Helper
   def execute(cmd)
-    puts "Running: #{cmd}" if show_command?
+    puts "Running: #{cmd}" if ENV['SHOW_COMMAND']
     out = `#{cmd}`
-    puts out if show_command?
+    puts out if ENV['SHOW_COMMAND']
     out
   end
 end
