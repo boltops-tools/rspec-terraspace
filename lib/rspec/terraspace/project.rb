@@ -16,6 +16,7 @@ module RSpec::Terraspace
     end
 
     def create
+      puts "Building test harness at: #{build_dir}"
       clean
       build_project
       build_config
@@ -23,7 +24,7 @@ module RSpec::Terraspace
       build_stacks
       build_tfvars
       build_folders
-      puts "Test harness built: #{build_dir}"
+      puts "Test harness built."
       build_dir
     end
 
@@ -43,7 +44,7 @@ module RSpec::Terraspace
       FileUtils.mkdir_p(parent_dir)
       Dir.chdir(parent_dir) do
         project_name = File.basename(build_dir)
-        ::Terraspace::CLI::New::Project.start([project_name, "--no-config"])
+        ::Terraspace::CLI::New::Project.start([project_name, "--no-config", "--quiet"])
       end
     end
 

@@ -7,7 +7,6 @@ module RSpec::Terraspace
     CLI = ::Terraspace::CLI
 
     def build_test_harness(options={})
-      puts "Building test harness..."
       project = Project.new(options)
       root = project.create
       Terraspace.root = root # switch root to the generated test harness
@@ -37,8 +36,11 @@ module RSpec::Terraspace
     end
 
     def output(mod, name)
-      data = JSON.load(IO.read(out_path))
-      data.dig(name, "value")
+      outputs.dig(name, "value")
+    end
+
+    def outputs(mod)
+      JSON.load(IO.read(out_path))
     end
 
     def out_path
