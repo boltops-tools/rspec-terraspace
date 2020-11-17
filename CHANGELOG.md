@@ -3,6 +3,9 @@
 All notable changes to this project will be documented in this file.
 This project *tries* to adhere to [Semantic Versioning](http://semver.org/).
 
+## [0.2.2] - 2020-11-17
+- fix outputs helper and templates
+
 ## [0.2.1] - 2020-11-16
 - [#3](https://github.com/boltops-tools/rspec-terraspace/pull/3) add config terraform provider template for azure test
 
