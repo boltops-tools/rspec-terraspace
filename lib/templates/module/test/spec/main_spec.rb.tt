@@ -19,7 +19,7 @@ describe "main" do
     # Replace with your own test
     expect(true).to be true
     # Example
-    # pp terraspace.outputs("<%= name %>")
+    # pp terraspace.outputs
     # output_value = terraspace.output("<%= name %>", "some-output")
     # expect(output_value).to include("some-value")
   end

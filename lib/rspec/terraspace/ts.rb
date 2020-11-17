@@ -39,7 +39,7 @@ module RSpec::Terraspace
       outputs.dig(name, "value")
     end
 
-    def outputs(mod)
+    def outputs
       JSON.load(IO.read(out_path))
     end
 
