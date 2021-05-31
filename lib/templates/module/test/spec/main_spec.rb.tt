@@ -7,7 +7,6 @@ describe "main" do
     terraspace.build_test_harness(
       name: "<%= name %>-harness",
       modules: {<%= name %>: mod_path},
-      stacks:  {<%= name %>: "#{mod_path}/test/spec/fixtures/stack"}, # folder with the stack module files
     )
     terraspace.up("<%= name %>")
   end
