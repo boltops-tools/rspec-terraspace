@@ -7,7 +7,6 @@ module RSpec::Terraspace
     CLI = ::Terraspace::CLI
 
     def build_test_harness(options={})
-      RSpec::Terraspace::Logging.new(options[:logging]).reconfigure!
       project = Project.new(options)
       root = project.create
       Terraspace.root = root # switch root to the generated test harness
