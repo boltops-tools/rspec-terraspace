@@ -9,8 +9,8 @@ describe "main" do
       modules: "#{ts_root}/app/modules", # include all modules in folder
       stacks:  {<%= name %>: stack_path},
       # override demo stack tfvars for testing
-      tfvars:  {demo: "#{stack_path}/test/spec/fixtures/tfvars/demo.tfvars"},
-      config:  "#{stack_path}/test/spec/fixtures/config",
+      # tfvars:  {demo: "#{stack_path}/test/spec/fixtures/tfvars/test.tfvars"},
+      # config:  "#{stack_path}/test/spec/fixtures/config",
     )
     terraspace.up("<%= name %>")
   end
