@@ -7,6 +7,9 @@ describe "main" do
     terraspace.build_test_harness(
       name: "<%= name %>-harness",
       modules: {<%= name %>: mod_path},
+      # See: https://terraspace.cloud/docs/testing/test-harness/
+      # tfvars: {demo: "spec/fixtures/tfvars/test.tfvars"},
+      # config: "spec/fixtures/config",
     )
     terraspace.up("<%= name %>")
   end

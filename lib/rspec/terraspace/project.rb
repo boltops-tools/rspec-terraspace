@@ -52,10 +52,10 @@ module RSpec::Terraspace
       return unless @config
 
       config_folder = "#{build_dir}/config"
-      FileUtils.rm_rf(config_folder) # wipe current config folder
       FileUtils.mkdir_p(File.dirname(config_folder))
-      src = @config
-      FileUtils.cp_r(src, config_folder)
+      Dir.glob("#{@config}/*").each do |src|
+        FileUtils.cp_r(src, config_folder)
+      end
     end
 
     def build_modules
