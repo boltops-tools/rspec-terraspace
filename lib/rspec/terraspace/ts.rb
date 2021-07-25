@@ -24,7 +24,7 @@ module RSpec::Terraspace
     end
 
     def run(command)
-      puts "=> terraspace #{command}".color(:green)
+      puts "=> TS_ENV=#{Terraspace.env} terraspace #{command}".color(:green)
       args = command.split(' ')
       CLI.start(args)
     end
