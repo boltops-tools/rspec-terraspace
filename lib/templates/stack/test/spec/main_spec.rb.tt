@@ -1,6 +1,5 @@
 describe "main" do
   before(:all) do
-    reconfigure_logging # reconfigure Terraspace.logger to a file
     stack_path = File.expand_path("../..", __dir__) # the source of the stack to test is 2 levels up
     ts_root = File.expand_path("../../..", stack_path) # original Terraspace.root
     # Build terraspace project to use as a test harness
@@ -10,8 +9,8 @@ describe "main" do
       modules: "#{ts_root}/app/modules", # include all modules in folder
       stacks:  {<%= name %>: stack_path},
       # override demo stack tfvars for testing
-      tfvars:  {demo: "#{stack_path}/test/spec/fixtures/tfvars/demo.tfvars"},
       config:  "#{stack_path}/test/spec/fixtures/config",
+      # tfvars:  {demo: "#{stack_path}/test/spec/fixtures/tfvars/test.tfvars"},
     )
     terraspace.up("<%= name %>")
   end
@@ -24,7 +23,11 @@ describe "main" do
     expect(true).to be true
     # Example
     # pp terraspace.outputs
-    # output_value = terraspace.output("<%= name %>", "some-output")
-    # expect(output_value).to include("some-value")
+    output_value = terraspace.output("<%= name %>", "bucket_name")
+    puts "output_value #{output_value}"
+    # More useful helpers:
+    # pp terraspace.state['resources']
+    # pp terraspace.state_resource('random_pet.this')
+    # pp terraspace.state_resource('module.bucket')
   end
 end

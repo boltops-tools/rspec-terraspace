@@ -52,10 +52,10 @@ module RSpec::Terraspace
       return unless @config
 
       config_folder = "#{build_dir}/config"
-      FileUtils.rm_rf(config_folder) # wipe current config folder
       FileUtils.mkdir_p(File.dirname(config_folder))
-      src = @config
-      FileUtils.cp_r(src, config_folder)
+      Dir.glob("#{@config}/*").each do |src|
+        FileUtils.cp_r(src, config_folder)
+      end
     end
 
     def build_modules
@@ -92,7 +92,8 @@ module RSpec::Terraspace
     def build_tfvars
       return unless @tfvars
       @tfvars.each do |stack, src|
-        tfvars_folder = "#{build_dir}/app/stacks/#{stack}/tfvars"
+        type = detected_type
+        tfvars_folder = "#{build_dir}/app/#{type}/#{stack}/tfvars"
         FileUtils.rm_rf(tfvars_folder) # wipe current tfvars folder. dont use any of the live values
 
         if File.directory?(src)
@@ -104,6 +105,13 @@ module RSpec::Terraspace
           FileUtils.cp(src, dest)
         end
       end
+    end
+
+    # Returns: modules or stacks
+    def detected_type
+      dir = Dir.pwd
+      md = dir.match(%r{app/(stacks|modules)/(.*)?/})
+      md[1]
     end
 
     # Inputs:

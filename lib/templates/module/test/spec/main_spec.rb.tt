@@ -1,12 +1,14 @@
 describe "main" do
   before(:all) do
-    reconfigure_logging # reconfigure Terraspace.logger to a file
     mod_path = File.expand_path("../..", __dir__) # the source of the module to test is 2 levels up
     # Build terraspace project to use as a test harness
     # Will be located at: /tmp/terraspace/test-harnesses/<%= name %>-harness
     terraspace.build_test_harness(
       name: "<%= name %>-harness",
       modules: {<%= name %>: mod_path},
+      # See: https://terraspace.cloud/docs/testing/test-harness/
+      # config: "spec/fixtures/config",
+      # tfvars: {example: "spec/fixtures/tfvars/test.tfvars"},
     )
     terraspace.up("<%= name %>")
   end
@@ -19,7 +21,7 @@ describe "main" do
     expect(true).to be true
     # Example
     # pp terraspace.outputs
-    # output_value = terraspace.output("<%= name %>", "some-output")
+    # output_value = terraspace.output("<%= name %>", "name")
     # expect(output_value).to include("some-value")
   end
 end
