@@ -13,12 +13,6 @@ module Helper
 end
 
 RSpec.configure do |c|
-  c.before(:all) do
-    Dir.glob("config/helpers/**/*.rb").each do |path|
-      require "./#{path}"
-      name = path.sub(%r{config/helpers/},'').sub('.rb','').camelize
-      mod = "Terraspace::Project::#{name}"
-      c.include mod.constantize
-    end
-  end
+  c.include Helper
+  c.include RSpec::Terraspace::Helpers
 end
