@@ -9,8 +9,8 @@ describe "main" do
       modules: "#{ts_root}/app/modules", # include all modules in folder
       stacks:  {<%= name %>: stack_path},
       # override demo stack tfvars for testing
+      config:  "#{stack_path}/test/spec/fixtures/config",
       # tfvars:  {demo: "#{stack_path}/test/spec/fixtures/tfvars/test.tfvars"},
-      # config:  "#{stack_path}/test/spec/fixtures/config",
     )
     terraspace.up("<%= name %>")
   end
@@ -23,7 +23,8 @@ describe "main" do
     expect(true).to be true
     # Example
     # pp terraspace.outputs
-    # output_value = terraspace.output("<%= name %>", "some-output")
+    output_value = terraspace.output("<%= name %>", "bucket_name")
+    puts "output_value #{output_value}"
     # expect(output_value).to include("some-value")
   end
 end

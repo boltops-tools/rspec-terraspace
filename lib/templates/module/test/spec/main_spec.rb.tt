@@ -8,7 +8,7 @@ describe "main" do
       modules: {<%= name %>: mod_path},
       # See: https://terraspace.cloud/docs/testing/test-harness/
       # config: "spec/fixtures/config",
-      # tfvars: {demo: "spec/fixtures/tfvars/test.tfvars"},
+      # tfvars: {example: "spec/fixtures/tfvars/test.tfvars"},
     )
     terraspace.up("<%= name %>")
   end
@@ -21,7 +21,7 @@ describe "main" do
     expect(true).to be true
     # Example
     # pp terraspace.outputs
-    # output_value = terraspace.output("<%= name %>", "some-output")
+    # output_value = terraspace.output("<%= name %>", "name")
     # expect(output_value).to include("some-value")
   end
 end
