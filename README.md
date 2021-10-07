@@ -21,7 +21,7 @@ So if you set it: `export TS_RSPEC_BUILD_ROOT=~/environment/terraspace-test-harn
 
 The test helpers support both module-level and project-level tests. See:
 
-* [Terraspace Testing](https://github.com/boltops-tools/terraspace-docs/blob/master/testing.md)
+* [Terraspace Testing](https://terraspace.cloud/docs/testing/)
 
 ## Installation
 
