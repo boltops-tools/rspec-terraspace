@@ -3,6 +3,9 @@
 All notable changes to this project will be documented in this file.
 This project *tries* to adhere to [Semantic Versioning](http://semver.org/).
 
+## [0.3.1] - 2021-12-29
+- [#8](https://github.com/boltops-tools/rspec-terraspace/pull/8) provider autodetection
+
 ## [0.3.0] - 2021-07-26
 - [#5](https://github.com/boltops-tools/rspec-terraspace/pull/5) Improvements
 - detect module or stack type so module specs can be written
