@@ -1,5 +1,6 @@
 require "rspec/terraspace/version"
 
+require "active_support"
 require "active_support/core_ext/class"
 require "active_support/core_ext/hash"
 require "active_support/core_ext/string"

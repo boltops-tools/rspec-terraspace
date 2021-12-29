@@ -11,6 +11,7 @@ module RSpec::Terraspace
       @stacks  = options[:stacks]
       @tfvars  = options[:tfvars]
       @folders = options[:folders]
+      @plugin  = options[:plugin]
 
       @remove_test_folder = options[:remove_test_folder].nil? ? true : options[:remove_test_folder]
     end
@@ -44,7 +45,29 @@ module RSpec::Terraspace
       FileUtils.mkdir_p(parent_dir)
       Dir.chdir(parent_dir) do
         project_name = File.basename(build_dir)
-        ::Terraspace::CLI::New::Project.start([project_name, "--no-config", "--quiet"])
+        args = [project_name, "--no-config", "--quiet"] + plugin_option
+        ::Terraspace::CLI::New::Project.start(args)
+      end
+    end
+
+    def plugin_option
+      if @plugin
+        ["-p", @plugin]
+      else
+        provider = autodetect_provider || "none"
+        ["-p", provider]
+      end
+    end
+
+    def autodetect_provider
+      providers = Terraspace::Plugin.meta.keys
+      if providers.size == 1
+        providers.first
+      else
+        precedence = %w[aws azurerm google]
+        precedence.find do |p|
+          providers.include?(p)
+        end
       end
     end
 
