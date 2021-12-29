@@ -8,9 +8,18 @@ module RSpec::Terraspace
     CLI = ::Terraspace::CLI
 
     def build_test_harness(options={})
+      setup
       project = Project.new(options)
       root = project.create
       Terraspace.root = root # switch root to the generated test harness
+    end
+
+    def setup
+      # Require gems in Gemfile so terraspace_plugin_* gets loaded and registered
+      # This it test Gemfile. IE: app/stacks/demo/test/Gemfile
+      Kernel.require "bundler/setup"
+      Bundler.require # Same as Bundler.require(:default)
+      Terraspace.check_project = false
     end
 
     def up(args)
