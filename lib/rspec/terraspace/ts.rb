@@ -23,12 +23,14 @@ module RSpec::Terraspace
     end
 
     def up(args)
+      Terraspace::Logger.clear
       run("up #{args} -y")
       mod = args.split(' ').first
       @mod = ::Terraspace::Mod.new(mod)
     end
 
     def down(args)
+      Terraspace::Logger.clear
       run("down #{args} -y")
     end
 
