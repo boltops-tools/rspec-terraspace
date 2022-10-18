@@ -133,7 +133,7 @@ module RSpec::Terraspace
     # Returns: modules or stacks
     def detected_type
       dir = Dir.pwd
-      md = dir.match(%r{app/(stacks|modules)/(.*)?/})
+      md = dir.match(%r{app/(stacks|modules)/(.*)?/?})
       md[1]
     end
 
