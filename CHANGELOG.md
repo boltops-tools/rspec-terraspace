@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project *tries* to adhere to [Semantic Versioning](http://semver.org/).
 
+## [0.3.2] - 2022-10-19
+- [#10](https://github.com/boltops-tools/rspec-terraspace/pull/10) Fix for 'detect_type' failing when Dir.pwd returns a path without trailing slash
+- clear logs
+- require ruby 2.6+
+
 ## [0.3.1] - 2021-12-29
 - [#8](https://github.com/boltops-tools/rspec-terraspace/pull/8) provider autodetection
 
