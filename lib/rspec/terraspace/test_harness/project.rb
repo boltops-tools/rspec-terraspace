@@ -1,5 +1,7 @@
+
 require "fileutils"
 require "tmpdir"
+require "terraspace-bundler"
 
 class RSpec::Terraspace::TestHarness
   class Project
@@ -24,7 +26,12 @@ class RSpec::Terraspace::TestHarness
       src = "#{detection.original_root}/#{detection.mod_path}/examples/#{example_name}"
       dest = "#{harness_root}/app/stacks/#{example_name}"
       FileUtils.cp_r(src, dest)
-      # TODO: REWRITE SOURCE. Include method or use class from Terraspace core
+      # Use terraspace-bundler class to rewrite source = ... line
+      rewrite = TerraspaceBundler::Exporter::Stacks::Rewrite.new(
+        folder: dest, # IE: /tmp/terraspace/test_harness/pet
+        mod_name: detection.mod_name, # IE: pet (from app/modules/pet)
+      )
+      rewrite.run
     end
 
     def example_name
