@@ -93,6 +93,9 @@ class RSpec::Terraspace::TestHarness
       Dir.chdir(parent_dir) do
         project_name = File.basename(harness_root)
         args = [project_name, "--quiet"]
+        options = @options[:new_project_options]
+        options = options ? [options.split(' ')].flatten.compact : []
+        args += options
         Terraspace::CLI::New::Project.start(args)
       end
     end

@@ -2,7 +2,7 @@ require "fileutils"
 require "tmpdir"
 
 module RSpec::Terraspace
-  class Project
+  class ProjectOld
     def initialize(options={})
       @options = options
       @name    = options[:name]
