@@ -93,6 +93,7 @@ class RSpec::Terraspace::TestHarness
       Dir.chdir(parent_dir) do
         project_name = File.basename(harness_root)
         args = [project_name, "--quiet"]
+        puts "Creating project: terraspace new project #{args.join(' ')}"
         Terraspace::CLI::New::Project.start(args)
       end
     end

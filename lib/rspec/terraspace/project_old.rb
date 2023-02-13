@@ -2,7 +2,7 @@ require "fileutils"
 require "tmpdir"
 
 module RSpec::Terraspace
-  class Project
+  class ProjectOld
     def initialize(options={})
       @options = options
       @name    = options[:name]
@@ -46,6 +46,7 @@ module RSpec::Terraspace
       Dir.chdir(parent_dir) do
         project_name = File.basename(build_dir)
         args = [project_name, "--no-config", "--quiet"] + plugin_option
+        puts "Creating project: terraspace new #{args.join(' ')}"
         ::Terraspace::CLI::New::Project.start(args)
       end
     end
