@@ -38,7 +38,7 @@ module RSpec::Terraspace
 
     def save_state
       FileUtils.mkdir_p(File.dirname(state_path))
-      run("state pull #{@mod.name} > #{state_path}")
+      run("state #{@mod.name} pull > #{state_path}")
     end
     memoize :save_state
 

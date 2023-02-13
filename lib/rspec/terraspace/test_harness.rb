@@ -8,7 +8,7 @@ module RSpec::Terraspace
       setup
       project = Project.new(@options.merge(options))
       root = project.create
-      # Terraspace.root = root # switch root to the generated test harness
+      Terraspace.root = root # switch root to the generated test harness
     end
 
     def setup
