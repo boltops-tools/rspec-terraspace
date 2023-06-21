@@ -3,6 +3,9 @@
 All notable changes to this project will be documented in this file.
 This project *tries* to adhere to [Semantic Versioning](http://semver.org/).
 
+## [0.3.3] - 2023-06-21
+- [#12](https://github.com/boltops-tools/rspec-terraspace/pull/12) Fix compatibility with latest `terraspace`
+
 ## [0.3.2] - 2022-10-19
 - [#10](https://github.com/boltops-tools/rspec-terraspace/pull/10) Fix for 'detect_type' failing when Dir.pwd returns a path without trailing slash
 - clear logs
