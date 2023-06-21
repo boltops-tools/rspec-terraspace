@@ -1,9 +1,5 @@
 source "https://rubygems.org"
 
-<%=
-build_gemfile(
-  "terraspace",
-  "rspec-terraspace",
-  plugin_gem_name,
-)
-%>
+gem "terraspace", "~> <%= terraspace_minor_version %>"
+gem "rspec-terraspace"
+gem "<%= plugin_gem_name %>"
